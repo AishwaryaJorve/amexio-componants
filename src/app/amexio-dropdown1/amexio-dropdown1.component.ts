@@ -10,6 +10,7 @@ import {
   Component,
   ContentChild,
   ElementRef,
+  EventEmitter,
   forwardRef,
   Input,
   OnInit,
@@ -25,12 +26,10 @@ import {
   NG_VALUE_ACCESSOR,
   Validators,
 } from "@angular/forms";
-import { CommonDataService, DisplayFieldService } from "amexio-ng-extensions";
-import { EventBaseComponent } from "amexio-ng-extensions/module/base/event.base.component";
-import { AmexioDropDownComponent } from "amexio-ng-extensions/module/forms/dropdown/dropdown.component";
-import { EventEmitter } from "events";
-import { debounceTime } from 'rxjs/operators';
-
+import { CommonDataService } from "../service/commondata.service";
+import {DisplayFieldService} from "../service/display-field.service";
+import { debounceTime } from "rxjs/operators";
+import { EventBaseComponent } from "../event.base/event.base.component";
 @Component({
   selector: "app-amexio-dropdown1",
   templateUrl: "./amexio-dropdown1.component.html",
@@ -65,8 +64,8 @@ import { debounceTime } from 'rxjs/operators';
     },
   ],
 })
-export class AmexioDropdown1Component
-  extends EventBaseComponent<any>
+export class AmexioDropdownComponent
+  extends EventBaseComponent
   implements OnInit, ControlValueAccessor, Validators
 {
   /*
@@ -889,14 +888,14 @@ export class AmexioDropdown1Component
   get value(): any {
     return this.innerValue;
   }
-  // set accessor including call the onchange callback
+//  set accessor including call the onchange callback
   set value(v: any) {
     if (v != null && v !== this.innerValue) {
       this.innerValue = v;
       this.onChangeCallback(v);
     }
   }
-  // Set touched on blur
+ // Set touched on blur
   onblur(event: any) {
     if (this.self) {
       this.self = false;
@@ -1061,4 +1060,3 @@ export class AmexioDropdown1Component
     this.hide();
   }
 }
-
