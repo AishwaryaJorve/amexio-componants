@@ -64,7 +64,8 @@ import { EventBaseComponent } from "../event.base/event.base.component";
     },
   ],
 })
-export class DropdownComponent   extends EventBaseComponent
+
+export class DropdownComponent   extends EventBaseComponent<any>
 implements OnInit, ControlValueAccessor, Validators {
 
   /*

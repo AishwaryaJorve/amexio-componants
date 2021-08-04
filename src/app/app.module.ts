@@ -3,15 +3,12 @@ import { NgModule } from "@angular/core";
 import { AmexioWidgetModule } from "amexio-ng-extensions"; // Import Amexio library
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { EventBaseComponent } from "./event.base/event.base.component";
-import { ValueAccessorBaseComponent } from "./value-accesor/value-accesor.component";
 import { DropdownComponent } from './dropdown/dropdown.component';
-
+// import {CommonDataService} from "./service/commondata.service";
+// import {DisplayFieldService} from "./service/display-field.service";
 @NgModule({
   declarations: [
     AppComponent,
-    EventBaseComponent,
-    ValueAccessorBaseComponent,
     DropdownComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, AmexioWidgetModule],
