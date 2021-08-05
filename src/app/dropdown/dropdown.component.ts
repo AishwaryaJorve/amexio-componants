@@ -362,6 +362,8 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 
 	@Output() isComponentValid: any = new EventEmitter<any>();
 	@Input("name") name: string;
+
+	// inject service
 	constructor(
 		@Inject(forwardRef(() => CommonDataService)) private dataService: CommonDataService,
 		@Inject(forwardRef(() => DisplayFieldService)) private displayFieldService: DisplayFieldService,
