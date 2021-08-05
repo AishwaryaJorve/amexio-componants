@@ -32,6 +32,10 @@ export class ValueAccessorBaseComponent<T> implements ControlValueAccessor {
 
   innerValue: T;
 
+  constructor() {
+
+  }
+
   // get accessor
   get value(): T {
     return this.innerValue;

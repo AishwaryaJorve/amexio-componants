@@ -18,7 +18,8 @@
 import { ChangeDetectorRef, ElementRef, Renderer2 } from '@angular/core';
 import { ValueAccessorBaseComponent } from '../value-accesor/value-accesor.component';
 
-export class EventBaseComponent<T> extends ValueAccessorBaseComponent<T> {
+export class EventBaseComponent<T> extends ValueAccessorBaseComponent<T>
+{
 
     self = false;
     itemClick = false;
@@ -59,6 +60,7 @@ export class EventBaseComponent<T> extends ValueAccessorBaseComponent<T> {
                    }
                 });
         }
+
 
     }
 

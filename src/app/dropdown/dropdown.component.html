@@ -1,4 +1,7 @@
-<!-- <div class="inputgroup" #rootDiv (keyup.esc)="closeOnEScape($event)">
+
+<!-- <h1>Hello</h1> -->
+
+<div class="inputgroup" #rootDiv (keyup.esc)="closeOnEScape($event)">
   <label
     id="fieldlabel"
     for="input"
@@ -18,7 +21,7 @@
 
   <input
     type="hidden"
-    ([ngModel])="(value)"
+    [ngModel]="value"
     (ngModelChange)="onChange($event)"
     #inp="ngModel"
   />
@@ -144,6 +147,7 @@
             [label]="buttonLabel"
             [type]="'theme-color'"
             [size]="'medium'"
+            [disabled]="!enablecheckbox"
             (onClick)="onSaveClick($event)"
           >
           </amexio-button>
@@ -166,4 +170,4 @@
 >
   <span *ngIf="inp.invalid && (inp.dirty || inp.touched)">&#9888;</span>
   <span *ngIf="inp.valid && (inp.dirty || inp.touched)"> &#10004;</span>
-</span> -->
+</span>

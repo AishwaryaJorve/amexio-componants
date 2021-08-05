@@ -1,2 +1,5 @@
-<!-- <app-dropdown></app-dropdown> -->
-<p>hello</p>
+<app-dropdown [field-label]="'Request Name'" [search]="true" [(ngModel)]="reqType"
+    [place-holder]="'Select Request Type'" name="reqType" [data]="requestTypeList" [display-field]="'value'"
+    [multi-select]="true" [value-field]="'key'" (onMultiSelect)="onMultiselectRequestType($event)"
+    [enable-checkbox]="true" [enable-sort]="true" [sort]="'asc'">
+</app-dropdown>

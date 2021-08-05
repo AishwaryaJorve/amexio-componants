@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { forwardRef, inject, Inject, Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 export class CommonDataService {
   filteredObject: any = [];
   zindex = 600;
-  constructor(private _http: HttpClient) {
+  constructor(@Inject(HttpClient) private _http: HttpClient) {
   }
 
   fetchData(serviceUrl: string, methodType: string): Observable<any> {
