@@ -1056,6 +1056,9 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 	}
 
 	onSaveClick(event: any) {
+		console.log(this.multiselectValues);
+
+
 		this.displayValue = this.setMultiSelect();
 		this.onMultiSelect.emit(this.multiselectValues);
 		this.hideDropdown = true;

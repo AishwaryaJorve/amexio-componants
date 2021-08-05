@@ -147,10 +147,11 @@
             [label]="buttonLabel"
             [type]="'theme-color'"
             [size]="'medium'"
-            [disabled]="!enablecheckbox"
+			[disabled]="!multiselectValues.length"
             (onClick)="onSaveClick($event)"
           >
           </amexio-button>
+
         </div>
       </ng-container>
       <ng-content></ng-content>

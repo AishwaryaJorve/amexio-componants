@@ -56,6 +56,8 @@ export class AppComponent {
 	}
 
 	onMultiselectRequestType(event: any) {
+		console.log(this.reqType);
+
 		console.log(event);
 	}
 
