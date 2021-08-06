@@ -52,7 +52,7 @@ export class EventBaseComponent<T> extends ValueAccessorBaseComponent<T>
     }
 
     bindDocumentClickListener() {
-        if (!this.documentClickListener) {
+        if (!this.documentClickListener && (!this.renderer == undefined)) {
             this.documentClickListener = this.renderer
                 .listen('document', 'click', (event: any) => {
                    if (!this.dropFlag) {
