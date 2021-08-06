@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
   title = 'amexio-io-multiselect';
-	reqType = " "
+	reqType = ""
+	str = [];
 	requestTypeList = [
 		{
 			"key": "SIEBEL_101",
@@ -49,16 +50,34 @@ export class AppComponent {
 		{
 			"key": "SIEBEL_110",
 			"value": "Note Search"
+		},
+		{
+			"key": "SIEBEL_111",
+			"value": "PSAN,E"
 		}
+
 	]
 	constructor() {
 
 	}
 
 	onMultiselectRequestType(event: any) {
+		console.log(event);
+
+		// set str arraya s empty
+		this.str = [];
+		console.log(this.str);
+
+		event.map((item) => {
+			this.str.push(item.value);
+		});
+		console.log(this.str);
+
+		//
+		this.reqType = this.str.toString();
 		console.log(this.reqType);
 
-		console.log(event);
+
 	}
 
 }

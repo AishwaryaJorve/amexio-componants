@@ -100,6 +100,7 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 	componentLoaded: boolean;
 	hideDropdown: boolean;
 	dropFlag: boolean;
+	displayfieldToSearch: string = "";
 	@Input("data")
 	set data(value: any) {
 		this._data = value;
@@ -148,7 +149,7 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 	default :
 	description : Name of key inside response data to display on ui.
 	*/
-	@Input("display-field") displayfield: string;
+	@Input("display-field") displayfield: string
 	/*
 	Properties
 	name : value-field
@@ -194,7 +195,7 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 	public dropdownitems: ElementRef;
 
 	displayValue = "";
-
+	multiselectValuesCopy = [];
 	filteredOptions: any[] = [];
 
 	selectAllFlag = false;
@@ -613,9 +614,11 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 	}
 	setFlags() {
 		this.selectAllFlag = false;
-		this.multiselectValues = [];
+		// this.multiselectValues = [];
 	}
 	chkFlag(selectedItem: any) {
+		console.log("only check");
+
 		if (selectedItem.hasOwnProperty("item")) {
 			if (selectedItem.item.hasOwnProperty("checked")) {
 				selectedItem.item.checked = !selectedItem.item.checked;
@@ -624,33 +627,7 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 			selectedItem.checked = !selectedItem.checked;
 		}
 	}
-	onItemSelect(selectedItem: any) {
-		this.enableChkbox();
-		if (this.multiselect) {
-			this.setFlags();
-			const optionsChecked: any = [];
-			if (
-				selectedItem.hasOwnProperty("item") ||
-				selectedItem.hasOwnProperty("checked")
-			) {
-				this.chkFlag(selectedItem);
-				this.filteredOptions.forEach((row: any) => {
-					if (row.checked) {
-						optionsChecked.push(row[this.valuefield]);
-						this.multiselectValues.push(row);
-					}
-				});
-				this.innerValue = optionsChecked;
-				this.checkboxMethod(selectedItem);
-				if (!this.enablecheckbox) {
-					this.onMultiSelect.emit(this.multiselectValues);
-				}
-			} // if ends here
-		} else {
-			this.emitItem(selectedItem);
-		} // else ends here
-		this.validateChkbox();
-	}
+
 
 	checkboxMethod(selectedItem: any) {
 		if (!this.enablecheckbox) {
@@ -660,8 +637,20 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 			this.onBaseFocusEvent(selectedItem);
 		}
 	}
+
 	setMultiSelectData() {
+		console.log(this.multiselectValues);
+
+
+
+		this.multiselectValuesCopy = this.multiselectValues;
 		this.multiselectValues = [];
+		// this.multiselectValues = multiselectValuesCopy
+		// for (let i = 0; i < multiselectValuesCopy.length; i++) {
+		// 	if (i % 2 == 0) {
+		// 		this.multiselectValues.push(multiselectValuesCopy[i]);
+		// 	}
+		// }
 		if (this.innerValue && this.innerValue.length > 0) {
 			const modelValue = this.innerValue;
 			this.filteredOptions.forEach((test) => {
@@ -682,8 +671,13 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 			}
 		});
 	}
-	navigateKey(event: any) { }
+	navigateKey(event: any) {
+		this.multiselectValues = [];
+		this.multiselectValues = this.multiselectValuesCopy;
+	}
 	getDisplayText() {
+		console.log("inside getDisplayText");
+
 		if (this.innerValue != null || this.innerValue !== "") {
 			if (this.multiselect) {
 				this.displayValue = this.setMultiSelect();
@@ -700,6 +694,8 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 				this.displayValue =
 					this.displayValue === undefined ? "" : this.displayValue;
 			}
+			console.log(this.displayValue);
+
 		}
 	}
 	setMultiSelect() {
@@ -725,13 +721,20 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 					", " + this.displayFieldService.findValue(this.valuefield, row));
 		});
 		this.value = multiselectValueModel;
+		console.log(this.multiselectValues);
 		if (this.multiselectValues.length > 0) {
 			return multiselectDisplayString;
 		} else {
 			return "";
 		}
+
+
 	}
 	onDropDownClick(event: any) {
+		console.log("Hii");
+
+		console.log(this.displayfield, "Aishwarya");
+		console.log(event);
 		if (!this.enablecheckbox) {
 			this.hideDropdown = true;
 		}
@@ -750,6 +753,8 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 			);
 			this.generateScroll(this.selectedindex);
 		}
+
+
 	}
 
 	generateScroll(index: any) {
@@ -797,6 +802,10 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 		this.isComponentValid.emit(input.valid);
 	}
 	onDropDownSearchKeyUp(event: any) {
+		console.log("search");
+
+		console.log(this.displayfield.valueOf);
+		this.displayfieldToSearch = this.displayfield;
 		if (this.search && this.viewData) {
 			const keyword = event.target.value;
 			if (keyword != null && keyword !== "" && keyword !== " ") {
@@ -810,6 +819,8 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 							.startsWith(search_Term)
 					) {
 						this.filteredOptions.push(row);
+						console.log(this.filteredOptions, "On serach filterOptions");
+						console.log(this.multiselectValues, "On search MultiselectValues");
 					}
 				});
 			}
@@ -825,7 +836,76 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 			this.navigateUsingKey(event);
 		}
 		this.onBaseFocusEvent({});
+
+
 	}
+
+	onItemSelect(selectedItem: any) {
+		let selectedRow: any;
+		console.log("checked");
+		console.log(this.filteredOptions, "On select Item");
+		console.log(this.multiselectValues, "On select multiSelectValues");
+
+		this.enableChkbox();
+		if (this.multiselect) {
+			this.setFlags();
+			console.log(this.multiselectValues, "On select multiSelectValues 2");
+			const optionsChecked: any = [];
+			if (
+				selectedItem.hasOwnProperty("item") ||
+				selectedItem.hasOwnProperty("checked")
+			) {
+				console.log("check");
+
+				this.chkFlag(selectedItem);
+				this.filteredOptions.forEach((row: any) => {
+					if (row.checked) {
+						optionsChecked.push(row[this.valuefield]);
+						selectedRow = row;
+						if (!this.multiselectValues.includes(row) && row.checked) {
+							this.multiselectValues.push(row);
+						}
+						// this.multiselectValues.push(row);
+						// // this.multiselectValues = [...this.multiselectValues, row];
+						// console.log(this.multiselectValues, "On select multiSelectValues after operation");
+						// this.multiselectValuesCopy = this.multiselectValues;
+					}
+				});
+				// this.multiselectValues = [];
+				// this.multiselectValuesCopy.forEach((row: any) => {
+				// 	console.log(this.multiselectValues.includes(row.key), "if condition");
+				// 	if (this.multiselectValues.includes(row.key)) {
+				// 		console.log(this.multiselectValues.includes(row.key), "if condition");
+				// 	}
+				// 	else {
+				// 		this.multiselectValues.push(row);
+				// 		console.log("else");
+
+				// 	}
+				// })
+				// console.log(selectedRow, "selected roe on select item");
+
+				// if (!this.multiselectValues.includes(selectedRow)) {
+				// 	this.multiselectValues.push(selectedRow);
+				// }
+				this.innerValue = optionsChecked;
+				this.checkboxMethod(selectedItem);
+				console.log("Multiselect values after operation", this.multiselectValues);
+				if (!this.enablecheckbox) {
+					this.onMultiSelect.emit(this.multiselectValues);
+				}
+
+
+			} // if ends here
+		} else {
+
+			this.emitItem(selectedItem);
+			console.log("else");
+
+		} // else ends here
+		this.validateChkbox();
+	}
+
 	// navigate using keys
 	navigateUsingKey(event: any) {
 		if (!this.showToolTip) {
@@ -1056,10 +1136,25 @@ export class DropdownComponent extends EventBaseComponent<any> implements OnInit
 	}
 
 	onSaveClick(event: any) {
+		this.multiselectValuesCopy = this.multiselectValues;
+
+		this.displayfieldToSearch = " ";
+
+		console.log(this.displayfield);
+		console.log(this.displayValue);
+
+
+		console.log(this.selectedindex);
+		let copy = [];
+		copy = this.multiselectValues;
+		this.multiselectValues = []
+		copy.map((item, index) => {
+			if (item.checked) {
+				this.multiselectValues.push(item)
+			}
+		})
 		console.log(this.multiselectValues);
-
-
-		this.displayValue = this.setMultiSelect();
+		// this.displayValue = this.setMultiSelect();
 		this.onMultiSelect.emit(this.multiselectValues);
 		this.hideDropdown = true;
 		this.dropFlag = false;
