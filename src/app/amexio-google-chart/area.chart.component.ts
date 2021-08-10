@@ -3,6 +3,7 @@ import {
   Component,
   ContentChildren,
   ElementRef,
+  Inject,
   Input,
   OnInit,
   QueryList,
@@ -13,10 +14,12 @@ import { chartLengendComponent } from "../amexio-google-chart/chart.legend.compo
 import { ChartTitleComponent } from "../amexio-google-chart/chart.title.component";
 import { ChartLoaderService } from "../amexio-google-chart/chart.loader.service";
 
+
 declare var google: any;
 @Component({
   selector: "amexio-chart-area",
   template: `
+  <h1>Hello</h1>
     <div
       *ngIf="showChart"
       #areachart
@@ -221,7 +224,7 @@ export class AreaChartComponent implements AfterContentInit, OnInit {
 
   @ViewChild("areachart") public areachart: ElementRef;
 
-  constructor(private loader: ChartLoaderService) {
+  constructor(@Inject(ChartLoaderService) private loader: ChartLoaderService) {
     this.width = "100%";
   }
 

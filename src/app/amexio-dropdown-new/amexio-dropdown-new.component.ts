@@ -35,7 +35,7 @@ import { EventBaseComponent } from "./event.base.component";
 @Component({
 	selector: 'amexio-dropdown-new',
 	templateUrl: './amexio-dropdown-new.component.html',
-	
+
 	animations: [
 		trigger("changeState", [
 			state(
@@ -720,6 +720,8 @@ export class AmexioDropdownNewComponent extends EventBaseComponent<any> implemen
 				: (multiselectValueModel +=
 					", " + this.displayFieldService.findValue(this.valuefield, row));
 		});
+
+		console.log(this.multiselectValues);
 		this.value = multiselectValueModel;
 		console.log(this.multiselectValues);
 		if (this.multiselectValues.length > 0) {
@@ -728,12 +730,8 @@ export class AmexioDropdownNewComponent extends EventBaseComponent<any> implemen
 			return "";
 		}
 
-
 	}
 	onDropDownClick(event: any) {
-		console.log("Hii");
-
-		console.log(this.displayfield, "Aishwarya");
 		console.log(event);
 		if (!this.enablecheckbox) {
 			this.hideDropdown = true;
@@ -802,7 +800,7 @@ export class AmexioDropdownNewComponent extends EventBaseComponent<any> implemen
 		this.isComponentValid.emit(input.valid);
 	}
 	onDropDownSearchKeyUp(event: any) {
-		console.log("search");
+		console.log("search", this.multiselectValues);
 
 		console.log(this.displayfield.valueOf);
 		this.displayfieldToSearch = this.displayfield;
@@ -894,8 +892,8 @@ export class AmexioDropdownNewComponent extends EventBaseComponent<any> implemen
 				if (!this.enablecheckbox) {
 					this.onMultiSelect.emit(this.multiselectValues);
 				}
-
-
+				this.multiselectValuesCopy = this.multiselectValues;
+				console.log(this.multiselectValues, "on click")
 			} // if ends here
 		} else {
 
@@ -1113,8 +1111,10 @@ export class AmexioDropdownNewComponent extends EventBaseComponent<any> implemen
 	}
 
 	selectAll(event: any) {
+
 		this.selectAllFlag = !this.selectAllFlag;
 		const optionsChecked: any = [];
+		// this.multiselectValues = this.multiselectValuesCopy;
 		this.multiselectValues = [];
 		this.filteredOptions.forEach((row: any) => {
 			if (this.selectAllFlag) {
@@ -1132,7 +1132,15 @@ export class AmexioDropdownNewComponent extends EventBaseComponent<any> implemen
 		if (this.enablecheckbox) {
 			this.onBaseFocusEvent(event);
 		}
+		this.multiselectValuesCopy.forEach(item => {
+			if (!this.multiselectValues.includes(item))
+				this.multiselectValues.push(item);
+		})
+
+		console.log(this.multiselectValues);
 		this.onMultiSelect.emit(this.multiselectValues);
+		console.log(this.multiselectValues);
+
 	}
 
 	onSaveClick(event: any) {
@@ -1146,6 +1154,8 @@ export class AmexioDropdownNewComponent extends EventBaseComponent<any> implemen
 
 		console.log(this.selectedindex);
 		let copy = [];
+		console.log(this.multiselectValues);
+
 		copy = this.multiselectValues;
 		this.multiselectValues = []
 		copy.map((item, index) => {

@@ -71,7 +71,7 @@ export class AppComponent {
 		});
 		console.log(this.displayFieldArray);
 		//
-		this.reqType = this.str.toString();
+		this.reqType = this.displayFieldArray.toString();
 		console.log(this.reqType);
 
 	}
