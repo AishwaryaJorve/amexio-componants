@@ -28,14 +28,14 @@ import {
 	NG_VALUE_ACCESSOR,
 	Validators,
 } from "@angular/forms";
-import { CommonDataService } from "../service/commondata.service";
-import { DisplayFieldService } from "../service/display-field.service";
+import { CommonDataService } from "./commondata.service";
+import { DisplayFieldService } from "./display-field.service";
 import { debounceTime } from "rxjs/operators";
-import { EventBaseComponent } from "../event.base/event.base.component";
+import { EventBaseComponent } from "./event.base.component";
 @Component({
-	selector: 'app-dropdown',
-	templateUrl: './dropdown.component.html',
-	styleUrls: ['./dropdown.component.css'],
+	selector: 'amexio-dropdown-new',
+	templateUrl: './amexio-dropdown-new.component.html',
+	
 	animations: [
 		trigger("changeState", [
 			state(
@@ -56,18 +56,18 @@ import { EventBaseComponent } from "../event.base/event.base.component";
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => DropdownComponent),
+			useExisting: forwardRef(() => AmexioDropdownNewComponent),
 			multi: true,
 		},
 		{
 			provide: NG_VALIDATORS,
-			useExisting: forwardRef(() => DropdownComponent),
+			useExisting: forwardRef(() => AmexioDropdownNewComponent),
 			multi: true,
 		},
 	],
 })
 
-export class DropdownComponent extends EventBaseComponent<any> implements OnInit, ControlValueAccessor, Validators {
+export class AmexioDropdownNewComponent extends EventBaseComponent<any> implements OnInit, ControlValueAccessor, Validators {
 
 	/*
 	 Properties

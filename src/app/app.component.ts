@@ -60,23 +60,19 @@ export class AppComponent {
 	constructor() {
 
 	}
-
+   displayFieldArray : any[]=[];
 	onMultiselectRequestType(event: any) {
 		console.log(event);
-
 		// set str arraya s empty
-		this.str = [];
-		console.log(this.str);
-
+		this.displayFieldArray = [];
+		console.log(this.displayFieldArray);
 		event.map((item) => {
-			this.str.push(item.value);
+			this.displayFieldArray.push(item.value);
 		});
-		console.log(this.str);
-
+		console.log(this.displayFieldArray);
 		//
 		this.reqType = this.str.toString();
 		console.log(this.reqType);
-
 
 	}
 
