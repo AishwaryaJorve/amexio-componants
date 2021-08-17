@@ -265,13 +265,42 @@ export class ComboChartComponent implements AfterContentInit, OnInit {
 				backgroundcolor: this.backgroundcolor,
 				legend: this.chartLengendComponent ? this.chartLegendStyle() : 'none',
 				chartArea: this.chartAreaComponent ? this.chartBackground() : null,
+				// Gives each series an axis that matches the vAxes number below.
+				series: {
+					0: {
+						targetAxisIndex: 0,
+						type: 'bars',
+						position: "right"
+					},
+					1: {
+						targetAxisIndex: 1,
+						type: 'line',
+						position: "left"
+					},
+					// seriesType: 'bars',
+					// series: { 0: { type: 'line' } },
+
+				},
+				vAxes: {
+					// Adds titles to each axis.
+					0: {
+						title: this.verticalComponent ? this.chartVerticalStyle().title : null,
+					},
+					1: {
+						title: this.verticalZaxisComponent ? this.chartVerticalzaxisStyle().title : null,
+					}
+				},
+
+				vZAxis: this.verticalZaxisComponent ? this.chartVerticalzaxisStyle() : null,
 				vAxis: this.verticalComponent ? this.chartVerticalStyle() : null,
 				hAxis: this.horizontalComponent ? this.chartHorizontalStyle() : null,
 				seriesType: 'bars',
-				series: { 4: { type: 'line' } },
+				// series: { 1: { type: 'line' } },
 			};
 			console.log(this.verticalComponent ? this.chartVerticalStyle() : null,);
 			console.log(this.chartLengendComponent ? this.chartLegendStyle() : 'none');
+			console.log(this.verticalZaxisComponent ? this.chartVerticalzaxisStyle() : null);
+
 
 
 			if (this.comboData) {
@@ -309,15 +338,7 @@ export class ComboChartComponent implements AfterContentInit, OnInit {
 			},
 		};
 	}
-	chartBackground() {
-		return {
-			backgroundcolor: this.chartAreaComponent.chartbackgroundcolor ? this.chartAreaComponent.chartbackgroundcolor : null,
-			left: this.chartAreaComponent.leftposition ? this.chartAreaComponent.leftposition : null,
-			top: this.chartAreaComponent.topposition ? this.chartAreaComponent.topposition : null,
-			height: this.chartAreaComponent.chartheight ? this.chartAreaComponent.chartheight : null,
-			width: this.chartAreaComponent.chartwidth ? this.chartAreaComponent.chartwidth : null,
-		};
-	}
+
 	chartVerticalStyle() {
 		return {
 			title: this.verticalComponent.title ? this.verticalComponent.title : null,
@@ -328,11 +349,23 @@ export class ComboChartComponent implements AfterContentInit, OnInit {
 
 	chartVerticalzaxisStyle() {
 		return {
+			position: this.verticalZaxisComponent.position ? this.verticalZaxisComponent.position : null,
 			title: this.verticalZaxisComponent.title ? this.verticalZaxisComponent.title : null,
 			titleTextStyle: { color: this.verticalZaxisComponent.titlecolor ? this.verticalZaxisComponent.titlecolor : null },
 
 		};
 	}
+
+	chartBackground() {
+		return {
+			backgroundcolor: this.chartAreaComponent.chartbackgroundcolor ? this.chartAreaComponent.chartbackgroundcolor : null,
+			left: this.chartAreaComponent.leftposition ? this.chartAreaComponent.leftposition : null,
+			top: this.chartAreaComponent.topposition ? this.chartAreaComponent.topposition : null,
+			height: this.chartAreaComponent.chartheight ? this.chartAreaComponent.chartheight : null,
+			width: this.chartAreaComponent.chartwidth ? this.chartAreaComponent.chartwidth : null,
+		};
+	}
+
 	chartHorizontalStyle() {
 		return {
 			title: this.horizontalComponent.title ? this.horizontalComponent.title : null,

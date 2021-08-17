@@ -25,6 +25,16 @@ export class VerticalZAxisComponent implements OnInit {
 
     /*
     Properties
+    name : position
+    datatype : string
+    version : 4.0 onwards
+    default :
+    description : Position of the legend.'bottom' - Below the chart.'top' - Above the chart.
+    */
+    @Input() position: string;
+
+    /*
+    Properties
     name : title
     datatype : string
     version : 4.0 onwards
