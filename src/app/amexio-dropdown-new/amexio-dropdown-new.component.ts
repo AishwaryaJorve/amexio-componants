@@ -1111,7 +1111,6 @@ export class AmexioDropdownNewComponent extends EventBaseComponent<any> implemen
 	}
 
 	selectAll(event: any) {
-
 		this.selectAllFlag = !this.selectAllFlag;
 		const optionsChecked: any = [];
 		// this.multiselectValues = this.multiselectValuesCopy;

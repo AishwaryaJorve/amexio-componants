@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  title = 'amexio-io-multiselect';
+	title = 'amexio-Components';
 	reqType = ""
 	str = [];
 	requestTypeList = [
@@ -57,23 +57,83 @@ export class AppComponent {
 		}
 
 	]
+
+
+	comboChartData: any;
+
 	constructor() {
+		this.comboChartData = [
+			['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
+			['2004/05', 5, 6, 522, 998, 450, 614.6],
+			['2005/06', 135, 1120, 79, 1268, 288, 682],
+			['2006/07', 157, 1167, 587, 807, 397, 623],
+			['2007/08', 139, 1110, 615, 968, 215, 609.4],
+			['2008/09', 136, 691, 629, 1026, 366, 569.6]
+		];
 
 	}
-   displayFieldArray : any[]=[];
-	onMultiselectRequestType(event: any) {
-		console.log(event);
-		// set str arraya s empty
-		this.displayFieldArray = [];
-		console.log(this.displayFieldArray);
-		event.map((item) => {
-			this.displayFieldArray.push(item.value);
-		});
-		console.log(this.displayFieldArray);
-		//
-		this.reqType = this.displayFieldArray.toString();
-		console.log(this.reqType);
 
-	}
+	ngOnInit() { }
+
+	// For chart
+
+// 	userDataSourcesc1: any;
+// 	barArray: any[] = [];
+// 	lineArray: any[] = [];
+// 	barData: any;
+
+// 	ngOnInit() {
+// 		this.barArray = [
+// 			{ column: "Corn Export", label: true },
+// 			{ column: "Bajra Export", label: true }];
+
+// 		this.lineArray = [
+// 			{ column: "Rice Export", label: true, color: "green" },
+// 			{ column: "Jowar Export" },
+// 			{ column: "Wheat Export" }
+// 		];
+// 		this.barData = [
+// 			['State', 'Corn Export', 'Bajra Export', 'Rice Export', 'Wheat Export', 'Jowar Export'],
+// 			['Andhra Pradesh', 600, 500, 250, 50, 95],
+// 			['Kerala', 500, 400, 75, 150, 195],
+// 			['Tamil Nadu', 400, 300, 250, 50, 95],
+// 			['Assam', 250, 150, 75, 150, 195],
+// 			['Maharshtra', 300, 200, 250, 50, 95]
+// 		];
+// 	}
+
+// 	constructor() {
+
+// 	}
+//    displayFieldArray : any[]=[];
+// 	onMultiselectRequestType(event: any) {
+// 		console.log(event);
+// 		// set str arraya s empty
+// 		this.displayFieldArray = [];
+// 		console.log(this.displayFieldArray);
+// 		event.map((item) => {
+// 			this.displayFieldArray.push(item.value);
+// 		});
+// 		console.log(this.displayFieldArray);
+// 		//
+// 		this.reqType = this.displayFieldArray.toString();
+// 		console.log(this.reqType);
+
+// 	}
+
+// 	//scenario 1 bar + line + data
+// 	onDefaultChartClicksc1(event: any) {
+// 		this.userDataSourcesc1 = event;
+// 	}
+
+// 	onDefaultLineClicksc1(event: any) {
+// 		this.userDataSourcesc1 = event;
+// 	}
+
+// 	onUserDefineLegendClicksc1(event: any) {
+// 		console.log(event);
+
+// 		this.userDataSourcesc1 = event;
+// 	}
 
 }

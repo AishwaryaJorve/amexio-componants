@@ -21,7 +21,7 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'amexio-chart-legend', template: ` `,
 })
-export class chartLengendComponent implements OnInit {
+export class ChartLegendComponent implements OnInit {
 
 /*
 Properties

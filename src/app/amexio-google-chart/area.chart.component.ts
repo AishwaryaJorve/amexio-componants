@@ -1,25 +1,24 @@
 import {
-  AfterContentInit,
-  Component,
-  ContentChildren,
-  ElementRef,
-  Inject,
-  Input,
-  OnInit,
-  QueryList,
-  ViewChild,
+	AfterContentInit,
+	Component,
+	ContentChildren,
+	ElementRef,
+	Inject,
+	Input,
+	OnInit,
+	QueryList,
+	ViewChild,
 } from "@angular/core";
 import { ChartAreaComponent } from "../amexio-google-chart/chart.area.component";
-import { chartLengendComponent } from "../amexio-google-chart/chart.legend.componet";
+import { ChartLegendComponent } from "../amexio-google-chart/chart.legend.componet";
 import { ChartTitleComponent } from "../amexio-google-chart/chart.title.component";
 import { ChartLoaderService } from "../amexio-google-chart/chart.loader.service";
 
-
 declare var google: any;
 @Component({
-  selector: "amexio-chart-area",
-  template: `
-  <h1>Hello</h1>
+	selector: "amexio-chart-area",
+	template: `
+    <h1>Hello</h1>
     <div
       *ngIf="showChart"
       #areachart
@@ -30,8 +29,8 @@ declare var google: any;
       <div *ngIf="!hasLoaded" class="lmask"></div>
     </div>
   `,
-  styles: [
-    `
+	styles: [
+		`
       .lmask {
         position: absolute;
         height: 100%;
@@ -137,224 +136,224 @@ declare var google: any;
         }
       }
     `,
-  ],
+	],
 })
 export class AreaChartComponent implements AfterContentInit, OnInit {
-  private options: any;
-  private areaData: any;
-  private chart: any;
-  hasLoaded: boolean;
-  id: any;
+	private options: any;
+	private areaData: any;
+	private chart: any;
+	hasLoaded: boolean;
+	id: any;
 
-  /*
-  Properties
-  name : width
-  datatype : string
-  version : 4.0 onwards
-  default :
-  description : Width of chart
-  */
-  @Input() width: string;
+	/*
+	  Properties
+	  name : width
+	  datatype : string
+	  version : 4.0 onwards
+	  default :
+	  description : Width of chart
+	  */
+	@Input() width: string;
 
-  /*
-  Properties
-  name : height
-  datatype : string
-  version : 4.0 onwards
-  default :
-  description : Height of chart
-  */
-  @Input() height: string;
+	/*
+	  Properties
+	  name : height
+	  datatype : string
+	  version : 4.0 onwards
+	  default :
+	  description : Height of chart
+	  */
+	@Input() height: string;
 
-  showChart: boolean;
-  _data: any;
+	showChart: boolean;
+	_data: any;
 
-  get data(): any {
-    return this._data;
-  }
+	get data(): any {
+		return this._data;
+	}
 
-  /*
-  Properties
-  name : data
-  datatype : any
-  version : 4.0 onwards
-  default :
-  description : Local data for AreaChart
-  */
-  @Input("data")
-  set data(data: any) {
-    if (data) {
-      this._data = data;
-      this.showChart = true;
-    } else {
-      this.showChart = false;
-    }
-  }
+	/*
+	  Properties
+	  name : data
+	  datatype : any
+	  version : 4.0 onwards
+	  default :
+	  description : Local data for AreaChart
+	  */
+	@Input("data")
+	set data(data: any) {
+		if (data) {
+			this._data = data;
+			this.showChart = true;
+		} else {
+			this.showChart = false;
+		}
+	}
 
-  /*
-  Properties
-  name : background-color
-  datatype : any
-  version : 4.0 onwards
-  default :
-  description : Sets background color to chart
-  */
-  @Input("background-color") backgroundcolor: string;
+	/*
+	  Properties
+	  name : background-color
+	  datatype : any
+	  version : 4.0 onwards
+	  default :
+	  description : Sets background color to chart
+	  */
+	@Input("background-color") backgroundcolor: string;
 
-  @ContentChildren(chartLengendComponent)
-  chartLegendComp: QueryList<chartLengendComponent>;
+	@ContentChildren(ChartLegendComponent)
+	chartLegendComp: QueryList<ChartLegendComponent>;
 
-  @ContentChildren(ChartTitleComponent)
-  chartTitleComp: QueryList<ChartTitleComponent>;
+	@ContentChildren(ChartTitleComponent)
+	chartTitleComp: QueryList<ChartTitleComponent>;
 
-  @ContentChildren(ChartAreaComponent)
-  chartAreaComp: QueryList<ChartAreaComponent>;
+	@ContentChildren(ChartAreaComponent)
+	chartAreaComp: QueryList<ChartAreaComponent>;
 
-  chartAreaArray: ChartAreaComponent[];
+	chartAreaArray: ChartAreaComponent[];
 
-  chartAreaComponent: ChartAreaComponent;
+	chartAreaComponent: ChartAreaComponent;
 
-  chartLegendArray: chartLengendComponent[];
+	chartLegendArray: ChartLegendComponent[];
 
-  chartLengendComponent: chartLengendComponent;
+	chartLengendComponent: ChartLegendComponent;
 
-  chartTitleArray: ChartTitleComponent[];
+	chartTitleArray: ChartTitleComponent[];
 
-  chartTitleComponent: ChartTitleComponent;
+	chartTitleComponent: ChartTitleComponent;
 
-  @ViewChild("areachart") public areachart: ElementRef;
+	@ViewChild("areachart") public areachart: ElementRef;
 
-  constructor(@Inject(ChartLoaderService) private loader: ChartLoaderService) {
-    this.width = "100%";
-  }
+	constructor(@Inject(ChartLoaderService) private loader: ChartLoaderService) {
+		this.width = "100%";
+	}
 
-  drawChart() {
-    if (this.showChart) {
-      this.areaData = google.visualization.arrayToDataTable(this._data);
-      this.options = {
-        title: this.chartTitleComponent ? this.chartTitleComponent.title : null,
-        titleTextStyle: this.chartTitleComponent
-          ? this.createTitleTextStyle()
-          : null,
-        backgroundcolor: this.backgroundcolor,
-        legend: this.chartLengendComponent ? this.createChartLegend() : "none",
-        chartArea: this.chartAreaComponent ? this.createChartArea() : null,
-      };
+	drawChart() {
+		if (this.showChart) {
+			this.areaData = google.visualization.arrayToDataTable(this._data);
+			this.options = {
+				title: this.chartTitleComponent ? this.chartTitleComponent.title : null,
+				titleTextStyle: this.chartTitleComponent
+					? this.createTitleTextStyle()
+					: null,
+				backgroundcolor: this.backgroundcolor,
+				legend: this.chartLengendComponent ? this.createChartLegend() : "none",
+				chartArea: this.chartAreaComponent ? this.createChartArea() : null,
+			};
 
-      if (this.areaData) {
-        this.chart = new google.visualization.AreaChart(
-          this.areachart.nativeElement
-        );
-        this.hasLoaded = true;
-        this.chart.draw(this.areaData, this.options);
-        google.visualization.events.addListener(
-          this.chart,
-          "click",
-          this.click
-        );
-      }
-    }
-  }
+			if (this.areaData) {
+				this.chart = new google.visualization.AreaChart(
+					this.areachart.nativeElement
+				);
+				this.hasLoaded = true;
+				this.chart.draw(this.areaData, this.options);
+				google.visualization.events.addListener(
+					this.chart,
+					"click",
+					this.click
+				);
+			}
+		}
+	}
 
-  createTitleTextStyle(): any {
-    return {
-      color: this.chartTitleComponent.color
-        ? this.chartTitleComponent.color
-        : null,
-      fontName: this.chartTitleComponent.fontname
-        ? this.chartTitleComponent.fontname
-        : null,
-      fontsize: this.chartTitleComponent.fontsize
-        ? this.chartTitleComponent.fontsize
-        : null,
-      bold: this.chartTitleComponent.bold
-        ? this.chartTitleComponent.bold
-        : null,
-      italic: this.chartTitleComponent.italic
-        ? this.chartTitleComponent.italic
-        : null,
-    };
-  }
+	createTitleTextStyle(): any {
+		return {
+			color: this.chartTitleComponent.color
+				? this.chartTitleComponent.color
+				: null,
+			fontName: this.chartTitleComponent.fontname
+				? this.chartTitleComponent.fontname
+				: null,
+			fontsize: this.chartTitleComponent.fontsize
+				? this.chartTitleComponent.fontsize
+				: null,
+			bold: this.chartTitleComponent.bold
+				? this.chartTitleComponent.bold
+				: null,
+			italic: this.chartTitleComponent.italic
+				? this.chartTitleComponent.italic
+				: null,
+		};
+	}
 
-  createChartLegend(): any {
-    return {
-      position: this.chartLengendComponent.position
-        ? this.chartLengendComponent.position
-        : null,
-      // this work only in chart position is top
-      maxLines: this.chartLengendComponent.maxlines
-        ? this.chartLengendComponent.maxlines
-        : null,
-      textStyle: {
-        color: this.chartLengendComponent.color
-          ? this.chartLengendComponent.color
-          : null,
-        fontsize: this.chartLengendComponent.fontsize
-          ? this.chartLengendComponent.fontsize
-          : null,
-        fontName: this.chartLengendComponent.fontname
-          ? this.chartLengendComponent.fontname
-          : null,
-        bold: this.chartLengendComponent.bold
-          ? this.chartLengendComponent.bold
-          : null,
-        alignment: this.chartLengendComponent.alignment
-          ? this.chartLengendComponent.alignment
-          : null,
-      },
-    };
-  }
+	createChartLegend(): any {
+		return {
+			position: this.chartLengendComponent.position
+				? this.chartLengendComponent.position
+				: null,
+			// this work only in chart position is top
+			maxLines: this.chartLengendComponent.maxlines
+				? this.chartLengendComponent.maxlines
+				: null,
+			textStyle: {
+				color: this.chartLengendComponent.color
+					? this.chartLengendComponent.color
+					: null,
+				fontsize: this.chartLengendComponent.fontsize
+					? this.chartLengendComponent.fontsize
+					: null,
+				fontName: this.chartLengendComponent.fontname
+					? this.chartLengendComponent.fontname
+					: null,
+				bold: this.chartLengendComponent.bold
+					? this.chartLengendComponent.bold
+					: null,
+				alignment: this.chartLengendComponent.alignment
+					? this.chartLengendComponent.alignment
+					: null,
+			},
+		};
+	}
 
-  createChartArea(): any {
-    return {
-      backgroundcolor: this.chartAreaComponent.chartbackgroundcolor
-        ? this.chartAreaComponent.chartbackgroundcolor
-        : null,
-      left: this.chartAreaComponent.leftposition
-        ? this.chartAreaComponent.leftposition
-        : null,
-      top: this.chartAreaComponent.topposition
-        ? this.chartAreaComponent.topposition
-        : null,
-      height: this.chartAreaComponent.chartheight
-        ? this.chartAreaComponent.chartheight
-        : null,
-      width: this.chartAreaComponent.chartwidth
-        ? this.chartAreaComponent.chartwidth
-        : null,
-    };
-  }
-  click(e: any) {}
+	createChartArea(): any {
+		return {
+			backgroundcolor: this.chartAreaComponent.chartbackgroundcolor
+				? this.chartAreaComponent.chartbackgroundcolor
+				: null,
+			left: this.chartAreaComponent.leftposition
+				? this.chartAreaComponent.leftposition
+				: null,
+			top: this.chartAreaComponent.topposition
+				? this.chartAreaComponent.topposition
+				: null,
+			height: this.chartAreaComponent.chartheight
+				? this.chartAreaComponent.chartheight
+				: null,
+			width: this.chartAreaComponent.chartwidth
+				? this.chartAreaComponent.chartwidth
+				: null,
+		};
+	}
+	click(e: any) { }
 
-  // after content init for inner directive is run
-  ngAfterContentInit(): void {
-    this.chartLegendArray = this.chartLegendComp.toArray();
-    this.chartTitleArray = this.chartTitleComp.toArray();
-    this.chartAreaArray = this.chartAreaComp.toArray();
-    // take first component
-    if (this.chartLegendArray.length === 1) {
-      this.chartLengendComponent = this.chartLegendArray.pop();
-    }
-    if (this.chartTitleArray.length === 1) {
-      this.chartTitleComponent = this.chartTitleArray.pop();
-    }
-    if (this.chartAreaArray.length === 1) {
-      this.chartAreaComponent = this.chartAreaArray.pop();
-    }
-  }
+	// after content init for inner directive is run
+	ngAfterContentInit(): void {
+		this.chartLegendArray = this.chartLegendComp.toArray();
+		this.chartTitleArray = this.chartTitleComp.toArray();
+		this.chartAreaArray = this.chartAreaComp.toArray();
+		// take first component
+		if (this.chartLegendArray.length === 1) {
+			this.chartLengendComponent = this.chartLegendArray.pop();
+		}
+		if (this.chartTitleArray.length === 1) {
+			this.chartTitleComponent = this.chartTitleArray.pop();
+		}
+		if (this.chartAreaArray.length === 1) {
+			this.chartAreaComponent = this.chartAreaArray.pop();
+		}
+	}
 
-  ngOnInit(): void {
-    this.hasLoaded = false;
-    this.loader.loadCharts("AreaChart").subscribe(
-      (value) => console.log(),
-      (errror) => console.error(errror),
-      () => {
-        this.drawChart();
-      }
-    );
-  }
+	ngOnInit(): void {
+		this.hasLoaded = false;
+		this.loader.loadCharts("AreaChart").subscribe(
+			(value) => console.log(),
+			(errror) => console.error(errror),
+			() => {
+				this.drawChart();
+			}
+		);
+	}
 
-  onResize(event: any) {
-    this.drawChart();
-  }
+	onResize(event: any) {
+		this.drawChart();
+	}
 }
