@@ -22,9 +22,8 @@ import { ChartLegendComponent } from './chart.legend.componet';
 import { ChartTitleComponent } from './chart.title.component';
 import { HorizontalAxisComponent } from './chart.horizontalaxis.component';
 import { VerticalAxisComponent } from './chart.verticalaxis.component';
-
+import {VerticalZAxisComponent} from "./chart.verticalZaxis.component";
 import { ChartLoaderService } from './chart.loader.service';
-import { VerticalZAxisComponent } from './chart.verticalZaxis.component';
 
 declare var google: any;
 @Component({
@@ -225,15 +224,19 @@ export class ComboChartComponent implements AfterContentInit, OnInit {
 
 	@ContentChildren(HorizontalAxisComponent) horizontalComp: QueryList<HorizontalAxisComponent>;
 
+	
 	horizontalArray: HorizontalAxisComponent[];
 
 	horizontalComponent: HorizontalAxisComponent;
 
 	@ContentChildren(VerticalAxisComponent) verticalComp: QueryList<VerticalAxisComponent>;
+	@ContentChildren(VerticalZAxisComponent) verticalZaxisComp: QueryList<VerticalZAxisComponent>;
 
-	verticalArray: HorizontalAxisComponent[];
+	verticalArray: VerticalAxisComponent[];
 
-	verticalComponent: HorizontalAxisComponent;
+	verticalComponent: VerticalAxisComponent;
+	verticalZaxisArray : VerticalZAxisComponent[];
+	verticalZaxisComponent :  VerticalZAxisComponent;
 
 	chartAreaArray: ChartAreaComponent[];
 
@@ -322,12 +325,21 @@ export class ComboChartComponent implements AfterContentInit, OnInit {
 
 		};
 	}
+
+	chartVerticalzaxisStyle() {
+		return {
+			title: this.verticalZaxisComponent.title ? this.verticalZaxisComponent.title : null,
+			titleTextStyle: { color: this.verticalZaxisComponent.titlecolor ? this.verticalZaxisComponent.titlecolor : null },
+
+		};
+	}
 	chartHorizontalStyle() {
 		return {
 			title: this.horizontalComponent.title ? this.horizontalComponent.title : null,
 			titleTextStyle: { color: this.horizontalComponent.titlecolor ? this.horizontalComponent.titlecolor : null },
 
 		};
+
 	}
 
 	// after content init for inner directive is run
@@ -337,6 +349,7 @@ export class ComboChartComponent implements AfterContentInit, OnInit {
 		this.chartAreaArray = this.chartAreaComp.toArray();
 		this.horizontalArray = this.horizontalComp.toArray();
 		this.verticalArray = this.verticalComp.toArray();
+		this.verticalZaxisArray = this.verticalZaxisComp.toArray();
 		// take first component
 		if (this.chartLegendArray.length === 1) {
 			this.chartLengendComponent = this.chartLegendArray.pop();
@@ -352,6 +365,9 @@ export class ComboChartComponent implements AfterContentInit, OnInit {
 		}
 		if (this.verticalArray.length === 1) {
 			this.verticalComponent = this.verticalArray.pop();
+		}
+		if(this.verticalZaxisArray.length === 1){
+			this.verticalZaxisComponent = this.verticalZaxisArray.pop();
 		}
 	}
 

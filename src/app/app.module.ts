@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { AmexioWidgetModule, ChartLegendComponent } from "amexio-ng-extensions"; // Import Amexio library
+import { AmexioWidgetModule } from "amexio-ng-extensions"; // Import Amexio library
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HttpClientModule } from "@angular/common/http";
@@ -13,6 +13,10 @@ import {AreaChartComponent} from "../app/amexio-google-chart/area.chart.componen
 import  {ChartAreaComponent} from "../app/amexio-google-chart/chart.area.component";
 import { ChartLoaderService } from "./amexio-google-chart/chart.loader.service";
 import { ComboChartComponent } from "../app/amexio-google-chart/combo.chart.component";
+import { HorizontalAxisComponent } from "./amexio-google-chart/chart.horizontalaxis.component";
+import {VerticalAxisComponent} from "./amexio-google-chart/chart.verticalaxis.component";
+import {ChartLegendComponent} from "../app/amexio-google-chart/chart.legend.componet";
+import {VerticalZAxisComponent} from "../app/amexio-google-chart/chart.verticalZaxis.component";
 
 @NgModule({
   declarations: [
@@ -25,9 +29,10 @@ import { ComboChartComponent } from "../app/amexio-google-chart/combo.chart.comp
     ChartLegendComponent,
     ChartTitleComponent,
     ChartAreaComponent,
-    ComboChartComponent
-   
-
+    ComboChartComponent,
+    HorizontalAxisComponent,
+    VerticalAxisComponent,
+    VerticalZAxisComponent
 
   ],
   imports: [BrowserModule, AppRoutingModule, AmexioWidgetModule, HttpClientModule, FormsModule,
