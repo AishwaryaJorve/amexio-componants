@@ -7,8 +7,12 @@
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Author - Sagar Jadhav
  *
+ *
+ */
+
+/**
+ * @author AishwaryaJorve, ShubhangiDongre
  */
 
 /*
@@ -277,8 +281,6 @@ export class ComboChartComponent implements AfterContentInit, OnInit {
 						type: 'line',
 						position: "left"
 					},
-					// seriesType: 'bars',
-					// series: { 0: { type: 'line' } },
 
 				},
 				vAxes: {
